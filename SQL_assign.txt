@@ -1,0 +1,25 @@
+SQL Assignment
+
+No.1 전체 구매 고객에 대하여 고객별 총 구매 금액 출력하기
+
+SELECT Orders.CustomerID, 
+       SUM(OrderDetails.Quantity * Products.Price) as Total    
+  FROM Orders, OrderDetails, Products
+ WHERE Orders.OrderID = OrderDetails.OrderID
+   AND OrderDetails.ProductID = Products.ProductID
+ Group by
+       CustomerID;
+
+
+No.2 2000개 이상의 판매가 이루어진 상품의 카테고리기 이름과 총 판매량, 총 판매 금액 출력하기
+
+SELECT Categories.CategoryName,
+       SUM(OrderDetails.Quantity) as Total_Quantity,
+       SUM(OrderDetails.Quantity * Products.Price) as Total_Amount
+  FROM OrderDetails, Products, Categories
+ WHERE OrderDetails.ProductID = Products.ProductID
+   AND Products.CategoryID = Categories.CategoryID
+ Group By
+       Categories.CategoryName
+ Having
+       SUM(OrderDetails.Quantity) >= 2000;
